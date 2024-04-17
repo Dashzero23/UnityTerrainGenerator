@@ -5,7 +5,8 @@ using UnityEngine.UIElements;
 
 public class TerrainScript : MonoBehaviour
 {
-    public string GameSeed = "Default";
+    public string GameSeed1 = "Default";
+    public string GameSeed2 = "Default";
     public int CurrentSeed = 0;
     public int width = 2000;
     public int height = 2000;
@@ -14,25 +15,48 @@ public class TerrainScript : MonoBehaviour
     public float offsetX = 100f;
     public float offsetY = 100f;
     public Terrain terrain;
+    public Terrain artifact;
+
     private void Start()
     {
-        CurrentSeed = GameSeed.GetHashCode();
+        CurrentSeed = GameSeed1.GetHashCode();
         Random.InitState(CurrentSeed);
         offsetX = Random.Range(0f, 9999f);
+        CurrentSeed = GameSeed2.GetHashCode();
+        Random.InitState(CurrentSeed);
         offsetY = Random.Range(0f, 9999f);
     }
 
+    public void prioriArtifact()
+    {
+        if(artifact.enabled)
+        {
+            artifact.enabled = false;
+            terrain.enabled = true;
+        }
+        else
+        {
+            artifact.enabled = true;
+            terrain.enabled = false;
+        }
+    }
     public void GenerateButton()
     {
         Generate();
     }
 
-    public void inputSeed(string s)
+    public void inputSeed1(string s)
     {
-        GameSeed = s;
-        CurrentSeed = GameSeed.GetHashCode();
+        GameSeed1 = s;
+        CurrentSeed = GameSeed1.GetHashCode();
         Random.InitState(CurrentSeed);
         offsetX = Random.Range(0f, 9999f);
+    }
+    public void inputSeed2(string s)
+    {
+        GameSeed2 = s;
+        CurrentSeed = GameSeed1.GetHashCode();
+        Random.InitState(CurrentSeed);
         offsetY = Random.Range(0f, 9999f);
     }
 
